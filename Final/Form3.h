@@ -54,7 +54,7 @@ namespace Final {
 		System::ComponentModel::Container^ components;
 
 		//where the magic happens
-#pragma region Windows Form Designer generated code
+#pragma region 
 		void InitializeComponent(void)
 		{
 			this->WelcomeText = (gcnew System::Windows::Forms::Label());

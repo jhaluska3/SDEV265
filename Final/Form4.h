@@ -18,15 +18,10 @@ namespace Final {
 		Form4(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
 		}
 		//destructor
 	protected:
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
+
 		~Form4()
 		{
 			if (components)
@@ -42,11 +37,8 @@ namespace Final {
 
 		System::ComponentModel::Container^ components;
 		//Where the magic happens
-#pragma region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
+#pragma region 
+	
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Form4::typeid));

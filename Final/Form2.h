@@ -50,7 +50,7 @@ namespace Final {//named Final after the program name
 		System::ComponentModel::Container^ components;
 
 		//where the magic happens
-#pragma region Windows Form Designer generated code
+#pragma region 
 
 	public:
 		//initialize

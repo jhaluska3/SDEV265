@@ -44,7 +44,7 @@ namespace Final {
 		System::ComponentModel::Container^ components;
 
 		//magic
-#pragma region Windows Form Designer generated code
+#pragma region 
 		void InitializeComponent(void)
 		{
 			this->userPanel = (gcnew System::Windows::Forms::Panel());

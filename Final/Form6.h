@@ -42,7 +42,7 @@ namespace Final {
 		System::ComponentModel::Container^ components;
 
 		//magic
-#pragma region Windows Form Designer generated code
+#pragma region 
 		void InitializeComponent(void)
 		{
 			this->RemoveLabel = (gcnew System::Windows::Forms::Label());
