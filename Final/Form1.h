@@ -248,7 +248,9 @@ namespace Final {
 		}
 #pragma endregion
 
-	public: Employee^ employee = nullptr;
+	public: 
+		Employee^ employee = nullptr;
+		
 
 	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e)
 	{
@@ -302,7 +304,7 @@ namespace Final {
 		{
 			String^ user = this->UserInput->Text;
 			String^ pass = this->PassInput->Text;
-
+			bool isAdmin = 0;
 			if (user->Length == 0 || pass->Length == 0)
 			{
 				MessageBox::Show("Please enter a username and password");
@@ -313,34 +315,65 @@ namespace Final {
 				String^ connection = "Data Source=(localdb)\\localsql;Initial Catalog=customerdb; Integrated Security=True";//////////////////////
 				SqlConnection sqlConn(connection);
 				sqlConn.Open();
-
-				String^ sqlQuery = "SELECT * FROM employees WHERE username=@user AND password=@pass;";
+				String^ sqlQuery = "SELECT * FROM employees WHERE username=@user AND password=@pass AND isAdmin=1;";
 				SqlCommand command(sqlQuery, % sqlConn);
 				command.Parameters->AddWithValue("@user", user);
 				command.Parameters->AddWithValue("@pass", pass);
-
 				SqlDataReader^ reader = command.ExecuteReader();
-				if
-					(reader->Read())
+				if (reader->Read())
 				{
 					employee = gcnew Employee;
 					employee->id = reader->GetInt32(0);
 					employee->username = reader->GetString(1);
 					employee->password = reader->GetString(2);
-
-					Form2^ form2 = gcnew Form2;
-					form2->Show();
-
-					//this->Close();
+					employee->isAdmin = true;
+					this->Close();
 				}
 				else
 				{
-					MessageBox::Show("Email or Password is incorrect");
-					//MessageBox::Show("Email or Password is incorrect", MessageBoxButtons::OK);
+
+				}
+			}
+
+			catch (Exception^ e)
+			{
+				MessageBox::Show("Failed to connect to database");
+			}
+
+			try
+			{
+				if (!isAdmin) {
+					String^ connection = "Data Source=(localdb)\\localsql;Initial Catalog=customerdb; Integrated Security=True";//////////////////////
+					SqlConnection sqlConn(connection);
+					sqlConn.Open();
+					String^ sqlQuery2 = "SELECT * FROM employees WHERE username=@user AND password=@pass AND isAdmin=0;";
+					SqlCommand command(sqlQuery2, % sqlConn);
+					command.Parameters->AddWithValue("@user", user);
+					command.Parameters->AddWithValue("@pass", pass);
+					SqlDataReader^ reader = command.ExecuteReader();
+					if (reader->Read())
+					{
+						employee = gcnew Employee;
+						employee->id = reader->GetInt32(0);
+						employee->username = reader->GetString(1);
+						employee->password = reader->GetString(2);
+						//Form2^ form2 = gcnew Form2;
+						//form2->Show();
+						//Final::Form2 form2(employee);
+						//Application::Run(% form2);
+						this->Close();
+
+					}
+					else
+					{
+						if(!employee->isAdmin)
+						MessageBox::Show("Email or Password is incorrect");
+					}	
 				}
 			}
 			catch (Exception^ e)
 			{
+				
 				MessageBox::Show("Failed to connect to database");
 			}
 

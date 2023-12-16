@@ -77,8 +77,8 @@ namespace Final {
 			this->Rules->Size = System::Drawing::Size(418, 259);
 			this->Rules->TabIndex = 1;
 			this->Rules->Text = L"IT IS AGAINST THE LAW \r\nTO PUNCH IN OR OUT \r\nFOR ANYBODY ELSE. \r\nANYONE CAUGHT \r\n"
-				L"STEALING TIME WILL \r\nBE FIRE IMMEDIATELY!\r\n\r\n";
-			this->Rules->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+				L"STEALING TIME WILL \r\nBE FIRED IMMEDIATELY!\r\n\r\n";
+			this->Rules->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
 			this->Rules->Click += gcnew System::EventHandler(this, &Form4::Rules_Click);
 			// 
 			// Form4

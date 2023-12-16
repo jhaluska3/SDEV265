@@ -1,4 +1,7 @@
 #pragma once
+#include "Employee.h"
+#include "Form5.h"
+#include "Form1.h"
 
 namespace Final {
 
@@ -15,12 +18,11 @@ namespace Final {
 	public ref class Form2 : public System::Windows::Forms::Form
 	{
 	public:
-		Form2(void)
+		Form2(Employee^ employee)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
+			empLabel->Text = "ID=" + employee->id;
+			int id = employee->id;
 		}
 
 	protected:
@@ -43,6 +45,8 @@ namespace Final {
 	private: System::Windows::Forms::Button^ ViewSchedule;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
 	private: System::Windows::Forms::MonthCalendar^ monthCalendar1;
+	private: System::Windows::Forms::Label^ empLabel;
+
 	protected:
 
 	protected:
@@ -58,6 +62,10 @@ namespace Final {
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
+		/// 
+		public: 
+			Employee^ viewSchedule = nullptr;
+			Employee^ isLogin = nullptr;
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Form2::typeid));
@@ -68,6 +76,7 @@ namespace Final {
 			this->ViewSchedule = (gcnew System::Windows::Forms::Button());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->monthCalendar1 = (gcnew System::Windows::Forms::MonthCalendar());
+			this->empLabel = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -76,7 +85,7 @@ namespace Final {
 			this->WelcomeText->AutoSize = true;
 			this->WelcomeText->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->WelcomeText->Location = System::Drawing::Point(580, 91);
+			this->WelcomeText->Location = System::Drawing::Point(579, 45);
 			this->WelcomeText->Name = L"WelcomeText";
 			this->WelcomeText->Size = System::Drawing::Size(231, 55);
 			this->WelcomeText->TabIndex = 1;
@@ -93,6 +102,7 @@ namespace Final {
 			this->PunchIn->TabIndex = 3;
 			this->PunchIn->Text = L"Punch In";
 			this->PunchIn->UseVisualStyleBackColor = false;
+			this->PunchIn->Click += gcnew System::EventHandler(this, &Form2::PunchIn_Click);
 			// 
 			// PunchOut
 			// 
@@ -105,6 +115,7 @@ namespace Final {
 			this->PunchOut->TabIndex = 4;
 			this->PunchOut->Text = L"Punch Out";
 			this->PunchOut->UseVisualStyleBackColor = false;
+			this->PunchOut->Click += gcnew System::EventHandler(this, &Form2::PunchOut_Click);
 			// 
 			// LogOut
 			// 
@@ -131,6 +142,7 @@ namespace Final {
 			this->ViewSchedule->TabIndex = 6;
 			this->ViewSchedule->Text = L"View Schedule";
 			this->ViewSchedule->UseVisualStyleBackColor = false;
+			this->ViewSchedule->Click += gcnew System::EventHandler(this, &Form2::ViewSchedule_Click);
 			// 
 			// pictureBox1
 			// 
@@ -149,11 +161,24 @@ namespace Final {
 			this->monthCalendar1->Name = L"monthCalendar1";
 			this->monthCalendar1->TabIndex = 8;
 			// 
+			// empLabel
+			// 
+			this->empLabel->AutoSize = true;
+			this->empLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->empLabel->Location = System::Drawing::Point(640, 114);
+			this->empLabel->Name = L"empLabel";
+			this->empLabel->Size = System::Drawing::Size(92, 31);
+			this->empLabel->TabIndex = 9;
+			this->empLabel->Text = L"label1";
+			this->empLabel->Click += gcnew System::EventHandler(this, &Form2::empLabel_Click);
+			// 
 			// Form2
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1188, 552);
+			this->Controls->Add(this->empLabel);
 			this->Controls->Add(this->monthCalendar1);
 			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->ViewSchedule);
@@ -172,9 +197,30 @@ namespace Final {
 #pragma endregion
 	private: System::Void TimeClock_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
-	private: System::Void LogOut_Click(System::Object^ sender, System::EventArgs^ e) {
-	}
+	
 private: System::Void pictureBox1_Click(System::Object^ sender, System::EventArgs^ e) {
 }
+private: System::Void empLabel_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+public: 
+
+private: System::Void ViewSchedule_Click(System::Object^ sender, System::EventArgs^ e) 
+{
+	Form5^ form5 = gcnew Form5;
+	form5->Show();
+}
+private: System::Void PunchIn_Click(System::Object^ sender, System::EventArgs^ e) 
+{
+	
+	MessageBox::Show("Punched In!");
+}
+private: System::Void PunchOut_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	MessageBox::Show("Punched Out!");
+}
+	   private: System::Void LogOut_Click(System::Object^ sender, System::EventArgs^ e)
+	   {
+		   this->Close();
+	   }
 };
 }

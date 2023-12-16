@@ -1,5 +1,7 @@
 #pragma once
-
+#include "Form5.h"
+#include "Form6.h"
+#include "Form7.h"
 namespace Final {
 
 	using namespace System;
@@ -15,6 +17,13 @@ namespace Final {
 	public ref class Form3 : public System::Windows::Forms::Form
 	{
 	public:
+		Form3(Employee^ employee)
+		{
+			InitializeComponent();
+			//
+			//TODO: Add the constructor code here
+			//
+		}
 		Form3(void)
 		{
 			InitializeComponent();
@@ -94,6 +103,7 @@ namespace Final {
 			this->PunchIn->TabIndex = 3;
 			this->PunchIn->Text = L"Punch In";
 			this->PunchIn->UseVisualStyleBackColor = false;
+			this->PunchIn->Click += gcnew System::EventHandler(this, &Form3::PunchIn_Click);
 			// 
 			// PunchOut
 			// 
@@ -106,6 +116,7 @@ namespace Final {
 			this->PunchOut->TabIndex = 4;
 			this->PunchOut->Text = L"Punch Out";
 			this->PunchOut->UseVisualStyleBackColor = false;
+			this->PunchOut->Click += gcnew System::EventHandler(this, &Form3::PunchOut_Click);
 			// 
 			// LogOut
 			// 
@@ -132,6 +143,7 @@ namespace Final {
 			this->ViewSchedule->TabIndex = 6;
 			this->ViewSchedule->Text = L"View Schedule";
 			this->ViewSchedule->UseVisualStyleBackColor = false;
+			this->ViewSchedule->Click += gcnew System::EventHandler(this, &Form3::ViewSchedule_Click);
 			// 
 			// monthCalendar1
 			// 
@@ -152,6 +164,7 @@ namespace Final {
 			this->CreateEmployee->TabIndex = 8;
 			this->CreateEmployee->Text = L"Create Employee";
 			this->CreateEmployee->UseVisualStyleBackColor = false;
+			this->CreateEmployee->Click += gcnew System::EventHandler(this, &Form3::CreateEmployee_Click);
 			// 
 			// button1
 			// 
@@ -165,6 +178,7 @@ namespace Final {
 			this->button1->TabIndex = 9;
 			this->button1->Text = L"Remove Employee";
 			this->button1->UseVisualStyleBackColor = false;
+			this->button1->Click += gcnew System::EventHandler(this, &Form3::button1_Click);
 			// 
 			// Form3
 			// 
@@ -189,7 +203,32 @@ namespace Final {
 #pragma endregion
 	private: System::Void TimeClock_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
-	private: System::Void LogOut_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void LogOut_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		this->Close();
 	}
-	};
+	private: System::Void PunchIn_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		MessageBox::Show("Punched In!");
+	}
+private: System::Void PunchOut_Click(System::Object^ sender, System::EventArgs^ e) 
+{
+	MessageBox::Show("Punched Out!");
+}
+private: System::Void CreateEmployee_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	Form6^ form6 = gcnew Form6;
+	form6->Show();
+}
+private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) 
+{
+	Form7^ form7 = gcnew Form7;
+	form7->Show();
+}
+private: System::Void ViewSchedule_Click(System::Object^ sender, System::EventArgs^ e) 
+{
+	Form5^ form5 = gcnew Form5;
+	form5->Show();
+}
+};
 }

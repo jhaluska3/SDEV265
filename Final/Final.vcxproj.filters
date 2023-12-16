@@ -38,5 +38,11 @@
     <ClInclude Include="Employee.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Form6.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Form7.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
