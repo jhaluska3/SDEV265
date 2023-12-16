@@ -1,10 +1,11 @@
+//Form7.h to add employees
+
 #pragma once
 #include "Form2.h"
 #include "Form3.h"
 #include "Form4.h"
 #include "Employee.h"
 namespace Final {
-
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -12,24 +13,18 @@ namespace Final {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace System::Data::SqlClient;
-	/// <summary>
-	/// Summary for Form7
-	/// </summary>
+
 	public ref class Form7 : public System::Windows::Forms::Form
 	{
 	public:
+		//constructor
 		Form7(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
 		}
 
 	protected:
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
+		//destructor
 		~Form7()
 		{
 			if (components)
@@ -37,210 +32,168 @@ namespace Final {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Label^ RemoveLabel;
-	protected:
-	private: System::Windows::Forms::Panel^ panel1;
-	private: System::Windows::Forms::TextBox^ Input;
-	private: System::Windows::Forms::Panel^ panel2;
-	private: System::Windows::Forms::TextBox^ textBox1;
-	private: System::Windows::Forms::Label^ userInput;
-	private: System::Windows::Forms::Panel^ panel3;
-	private: System::Windows::Forms::TextBox^ textBox2;
-	private: System::Windows::Forms::Label^ label2;
-	private: System::Windows::Forms::Button^ addButton;
-
+	private: System::Windows::Forms::Panel^ userPanel;//cosmetic panel behind username
+	private: System::Windows::Forms::TextBox^ userInput;//textbox to take username
+	private: System::Windows::Forms::Label^ userLabel;//label next to username
+	private: System::Windows::Forms::Panel^ passPanel;//cosmetic panel behind password
+	private: System::Windows::Forms::TextBox^ passInput;//textbox to take password
+	private: System::Windows::Forms::Label^ passLabel;//label next to password
+	private: System::Windows::Forms::Button^ addButton;//button to add employee
 	private:
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
+
 		System::ComponentModel::Container^ components;
 
+		//magic
 #pragma region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->RemoveLabel = (gcnew System::Windows::Forms::Label());
-			this->panel1 = (gcnew System::Windows::Forms::Panel());
-			this->Input = (gcnew System::Windows::Forms::TextBox());
-			this->panel2 = (gcnew System::Windows::Forms::Panel());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->userInput = (gcnew System::Windows::Forms::Label());
-			this->panel3 = (gcnew System::Windows::Forms::Panel());
-			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
-			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->userPanel = (gcnew System::Windows::Forms::Panel());
+			this->userInput = (gcnew System::Windows::Forms::TextBox());
+			this->userLabel = (gcnew System::Windows::Forms::Label());
+			this->passPanel = (gcnew System::Windows::Forms::Panel());
+			this->passInput = (gcnew System::Windows::Forms::TextBox());
+			this->passLabel = (gcnew System::Windows::Forms::Label());
 			this->addButton = (gcnew System::Windows::Forms::Button());
-			this->panel1->SuspendLayout();
-			this->panel2->SuspendLayout();
-			this->panel3->SuspendLayout();
+			this->userPanel->SuspendLayout();
+			this->passPanel->SuspendLayout();
 			this->SuspendLayout();
 			// 
-			// RemoveLabel
+			// userPanel
 			// 
-			this->RemoveLabel->AutoSize = true;
-			this->RemoveLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->RemoveLabel->Location = System::Drawing::Point(40, 31);
-			this->RemoveLabel->Name = L"RemoveLabel";
-			this->RemoveLabel->Size = System::Drawing::Size(367, 31);
-			this->RemoveLabel->TabIndex = 0;
-			this->RemoveLabel->Text = L"Enter Employee ID to Add: ";
-			this->RemoveLabel->Click += gcnew System::EventHandler(this, &Form7::RemoveLabel_Click);
-			// 
-			// panel1
-			// 
-			this->panel1->BackColor = System::Drawing::SystemColors::ControlDark;
-			this->panel1->Controls->Add(this->Input);
-			this->panel1->Controls->Add(this->RemoveLabel);
-			this->panel1->Location = System::Drawing::Point(12, 12);
-			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(613, 93);
-			this->panel1->TabIndex = 1;
-			// 
-			// Input
-			// 
-			this->Input->BackColor = System::Drawing::SystemColors::ControlDark;
-			this->Input->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 21.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->Input->Location = System::Drawing::Point(460, 31);
-			this->Input->Name = L"Input";
-			this->Input->Size = System::Drawing::Size(129, 40);
-			this->Input->TabIndex = 1;
-			this->Input->Text = L"Ex. 1";
-			this->Input->TextChanged += gcnew System::EventHandler(this, &Form7::Input_TextChanged);
-			// 
-			// panel2
-			// 
-			this->panel2->BackColor = System::Drawing::SystemColors::ControlDark;
-			this->panel2->Controls->Add(this->textBox1);
-			this->panel2->Controls->Add(this->userInput);
-			this->panel2->Location = System::Drawing::Point(12, 131);
-			this->panel2->Name = L"panel2";
-			this->panel2->Size = System::Drawing::Size(613, 93);
-			this->panel2->TabIndex = 2;
-			// 
-			// textBox1
-			// 
-			this->textBox1->BackColor = System::Drawing::SystemColors::ControlDark;
-			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 21.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->textBox1->Location = System::Drawing::Point(460, 31);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(129, 40);
-			this->textBox1->TabIndex = 1;
-			this->textBox1->Text = L"Ex. abc";
+			this->userPanel->BackColor = System::Drawing::SystemColors::ControlDark;
+			this->userPanel->Controls->Add(this->userInput);
+			this->userPanel->Controls->Add(this->userLabel);
+			this->userPanel->Location = System::Drawing::Point(12, 34);
+			this->userPanel->Name = L"userPanel";
+			this->userPanel->Size = System::Drawing::Size(613, 93);
+			this->userPanel->TabIndex = 2;
 			// 
 			// userInput
 			// 
-			this->userInput->AutoSize = true;
-			this->userInput->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->userInput->BackColor = System::Drawing::SystemColors::ControlDark;
+			this->userInput->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 21.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->userInput->Location = System::Drawing::Point(40, 31);
+			this->userInput->Location = System::Drawing::Point(460, 31);
 			this->userInput->Name = L"userInput";
-			this->userInput->Size = System::Drawing::Size(378, 31);
-			this->userInput->TabIndex = 0;
-			this->userInput->Text = L"Enter Employee Username: ";
+			this->userInput->Size = System::Drawing::Size(129, 40);
+			this->userInput->TabIndex = 1;
+			this->userInput->Text = L"Ex. abc";
+			this->userInput->TextChanged += gcnew System::EventHandler(this, &Form7::userInput_TextChanged);
 			// 
-			// panel3
+			// userLabel
 			// 
-			this->panel3->BackColor = System::Drawing::SystemColors::ControlDark;
-			this->panel3->Controls->Add(this->textBox2);
-			this->panel3->Controls->Add(this->label2);
-			this->panel3->Location = System::Drawing::Point(12, 250);
-			this->panel3->Name = L"panel3";
-			this->panel3->Size = System::Drawing::Size(613, 93);
-			this->panel3->TabIndex = 3;
-			// 
-			// textBox2
-			// 
-			this->textBox2->BackColor = System::Drawing::SystemColors::ControlDark;
-			this->textBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 21.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->userLabel->AutoSize = true;
+			this->userLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textBox2->Location = System::Drawing::Point(460, 31);
-			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(129, 40);
-			this->textBox2->TabIndex = 1;
-			this->textBox2->Text = L"Ex. 123";
+			this->userLabel->Location = System::Drawing::Point(17, 31);
+			this->userLabel->Name = L"userLabel";
+			this->userLabel->Size = System::Drawing::Size(378, 31);
+			this->userLabel->TabIndex = 0;
+			this->userLabel->Text = L"Enter Employee Username: ";
 			// 
-			// label2
+			// passPanel
 			// 
-			this->label2->AutoSize = true;
-			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->passPanel->BackColor = System::Drawing::SystemColors::ControlDark;
+			this->passPanel->Controls->Add(this->passInput);
+			this->passPanel->Controls->Add(this->passLabel);
+			this->passPanel->Location = System::Drawing::Point(12, 156);
+			this->passPanel->Name = L"passPanel";
+			this->passPanel->Size = System::Drawing::Size(613, 93);
+			this->passPanel->TabIndex = 3;
+			// 
+			// passInput
+			// 
+			this->passInput->BackColor = System::Drawing::SystemColors::ControlDark;
+			this->passInput->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 21.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label2->Location = System::Drawing::Point(40, 31);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(373, 31);
-			this->label2->TabIndex = 0;
-			this->label2->Text = L"Enter Employee Password: ";
+			this->passInput->Location = System::Drawing::Point(460, 31);
+			this->passInput->Name = L"passInput";
+			this->passInput->Size = System::Drawing::Size(129, 40);
+			this->passInput->TabIndex = 1;
+			this->passInput->Text = L"Ex. 123";
+			this->passInput->TextChanged += gcnew System::EventHandler(this, &Form7::passInput_TextChanged);
+			// 
+			// passLabel
+			// 
+			this->passLabel->AutoSize = true;
+			this->passLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->passLabel->Location = System::Drawing::Point(40, 31);
+			this->passLabel->Name = L"passLabel";
+			this->passLabel->Size = System::Drawing::Size(373, 31);
+			this->passLabel->TabIndex = 0;
+			this->passLabel->Text = L"Enter Employee Password: ";
 			// 
 			// addButton
 			// 
 			this->addButton->BackColor = System::Drawing::SystemColors::ActiveCaption;
 			this->addButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 27.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->addButton->Location = System::Drawing::Point(143, 369);
+			this->addButton->Location = System::Drawing::Point(152, 280);
 			this->addButton->Name = L"addButton";
 			this->addButton->Size = System::Drawing::Size(327, 87);
 			this->addButton->TabIndex = 4;
 			this->addButton->Text = L"Add Employee";
 			this->addButton->UseVisualStyleBackColor = false;
+			this->addButton->Click += gcnew System::EventHandler(this, &Form7::addButton_Click);
 			// 
 			// Form7
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(633, 481);
+			this->ClientSize = System::Drawing::Size(633, 392);
 			this->Controls->Add(this->addButton);
-			this->Controls->Add(this->panel3);
-			this->Controls->Add(this->panel2);
-			this->Controls->Add(this->panel1);
+			this->Controls->Add(this->passPanel);
+			this->Controls->Add(this->userPanel);
 			this->Name = L"Form7";
 			this->Text = L"Form7";
-			this->panel1->ResumeLayout(false);
-			this->panel1->PerformLayout();
-			this->panel2->ResumeLayout(false);
-			this->panel2->PerformLayout();
-			this->panel3->ResumeLayout(false);
-			this->panel3->PerformLayout();
+			this->userPanel->ResumeLayout(false);
+			this->userPanel->PerformLayout();
+			this->passPanel->ResumeLayout(false);
+			this->passPanel->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
 	public:
-		Employee^ employee = nullptr;
-	private: System::Void Input_TextChanged(System::Object^ sender, System::EventArgs^ e)
-	{
-		String^ input = this->Input->Text;
+		Employee^ employee = nullptr;//create employee
 
-		if (input->Length == 0)
+	private: System::Void userInput_TextChanged(System::Object^ sender, System::EventArgs^ e)
+	{
+		//allows text to be changed
+	}
+	private: System::Void passInput_TextChanged(System::Object^ sender, System::EventArgs^ e)
+	{
+		//allows text to be changed
+	}
+		   //button to add user
+	private: System::Void addButton_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		String^ userInput = this->userInput->Text;//username input
+		String^ passInput = this->passInput->Text;//password input
+
+		if (userInput->Length == 0 || passInput->Length == 0)//check that values are entered
 		{
-			MessageBox::Show("Please enter a user to remove");
+			MessageBox::Show("Please enter valid credentials");//if not values entered, output message
 			return;
 		}
-		try
+		try//try to add the values
 		{
 			String^ connection = "Data Source=(localdb)\\localsql;Initial Catalog=customerdb; Integrated Security=True";//////////////////////
 			SqlConnection sqlConn(connection);
 			sqlConn.Open();
-			String^ sqlQuery = "DELETE * FROM employees WHERE id=@input AND DELETE * FROM Schedule WHERE id=@input;";
+			String^ sqlQuery = "INSERT INTO employee (username, password) VALUES (@user, @pass);";
 			SqlCommand command(sqlQuery, % sqlConn);
-			command.Parameters->AddWithValue("@user", input);
-
+			command.Parameters->AddWithValue("@user", userInput);
+			command.Parameters->AddWithValue("@pass", passInput);
 			SqlDataReader^ reader = command.ExecuteReader();
 			if (reader->Read())
 			{
-				employee = gcnew Employee;
-				employee->id = reader->GetInt32(0);
-				employee->username = reader->GetString(1);
-				employee->password = reader->GetString(2);
-				employee->isAdmin = true;
-				this->Close();
+
 			}
 			else
 			{
-				MessageBox::Show("   ");
+				MessageBox::Show("User Not Created");
 			}
 		}
 
@@ -248,9 +201,7 @@ namespace Final {
 		{
 			MessageBox::Show("Failed to connect to database");
 		}
-		MessageBox::Show("User Deleted");
+		MessageBox::Show("User Created");
 	}
-	private: System::Void RemoveLabel_Click(System::Object^ sender, System::EventArgs^ e) {
-	}
-};
+	};
 }

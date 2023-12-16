@@ -1,10 +1,12 @@
+//Form2.h this is the home page for non-admin employees.
+
 #pragma once
+//header files referenced in this form
 #include "Employee.h"
 #include "Form5.h"
 #include "Form1.h"
 
-namespace Final {
-
+namespace Final {//named Final after the program name
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -12,23 +14,18 @@ namespace Final {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	/// <summary>
-	/// Summary for Form2
-	/// </summary>
 	public ref class Form2 : public System::Windows::Forms::Form
 	{
 	public:
-		Form2(Employee^ employee)
+		Form2(Employee^ employee)//sets employee as the user logged in
 		{
 			InitializeComponent();
-			empLabel->Text = "ID=" + employee->id;
+			empLabel->Text = "User " + employee->id + "!";//changes the "empLabel" label text to the user's ID
 			int id = employee->id;
 		}
 
 	protected:
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
+		//destructor
 		~Form2()
 		{
 			if (components)
@@ -36,36 +33,27 @@ namespace Final {
 				delete components;
 			}
 		}
-
-	private: System::Windows::Forms::Label^ WelcomeText;
-
-	private: System::Windows::Forms::Button^ PunchIn;
-	private: System::Windows::Forms::Button^ PunchOut;
-	private: System::Windows::Forms::Button^ LogOut;
-	private: System::Windows::Forms::Button^ ViewSchedule;
-	private: System::Windows::Forms::PictureBox^ pictureBox1;
-	private: System::Windows::Forms::MonthCalendar^ monthCalendar1;
-	private: System::Windows::Forms::Label^ empLabel;
-
-	protected:
+		//components of form
+	private: System::Windows::Forms::Label^ WelcomeText;//Label "Welcome"
+	private: System::Windows::Forms::Button^ PunchIn;//Button to Punch In
+	private: System::Windows::Forms::Button^ PunchOut;//Button to Punch out
+	private: System::Windows::Forms::Button^ LogOut;//Button to Log Out
+	private: System::Windows::Forms::Button^ ViewSchedule;//Button to view schedule
+	private: System::Windows::Forms::MonthCalendar^ monthCalendar1;//displays calender
+	private: System::Windows::Forms::Label^ empLabel;//Label outputs "User " user id "!"
+	private: System::Windows::Forms::PictureBox^ clockPic;//nice fancy clock picture
 
 	protected:
 
 	private:
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		System::ComponentModel::Container ^components;
+		//more components
+		System::ComponentModel::Container^ components;
 
+		//where the magic happens
 #pragma region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		/// 
-		public: 
-			Employee^ viewSchedule = nullptr;
-			Employee^ isLogin = nullptr;
+
+	public:
+		//initialize
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Form2::typeid));
@@ -74,10 +62,10 @@ namespace Final {
 			this->PunchOut = (gcnew System::Windows::Forms::Button());
 			this->LogOut = (gcnew System::Windows::Forms::Button());
 			this->ViewSchedule = (gcnew System::Windows::Forms::Button());
-			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->monthCalendar1 = (gcnew System::Windows::Forms::MonthCalendar());
 			this->empLabel = (gcnew System::Windows::Forms::Label());
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
+			this->clockPic = (gcnew System::Windows::Forms::PictureBox());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->clockPic))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// WelcomeText
@@ -144,17 +132,6 @@ namespace Final {
 			this->ViewSchedule->UseVisualStyleBackColor = false;
 			this->ViewSchedule->Click += gcnew System::EventHandler(this, &Form2::ViewSchedule_Click);
 			// 
-			// pictureBox1
-			// 
-			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
-			this->pictureBox1->Location = System::Drawing::Point(54, 57);
-			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(255, 296);
-			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
-			this->pictureBox1->TabIndex = 7;
-			this->pictureBox1->TabStop = false;
-			this->pictureBox1->Click += gcnew System::EventHandler(this, &Form2::pictureBox1_Click);
-			// 
 			// monthCalendar1
 			// 
 			this->monthCalendar1->Location = System::Drawing::Point(68, 372);
@@ -171,16 +148,25 @@ namespace Final {
 			this->empLabel->Size = System::Drawing::Size(92, 31);
 			this->empLabel->TabIndex = 9;
 			this->empLabel->Text = L"label1";
-			this->empLabel->Click += gcnew System::EventHandler(this, &Form2::empLabel_Click);
+			// 
+			// clockPic
+			// 
+			this->clockPic->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"clockPic.Image")));
+			this->clockPic->Location = System::Drawing::Point(68, 67);
+			this->clockPic->Name = L"clockPic";
+			this->clockPic->Size = System::Drawing::Size(227, 274);
+			this->clockPic->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->clockPic->TabIndex = 10;
+			this->clockPic->TabStop = false;
 			// 
 			// Form2
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1188, 552);
+			this->Controls->Add(this->clockPic);
 			this->Controls->Add(this->empLabel);
 			this->Controls->Add(this->monthCalendar1);
-			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->ViewSchedule);
 			this->Controls->Add(this->LogOut);
 			this->Controls->Add(this->PunchOut);
@@ -189,38 +175,38 @@ namespace Final {
 			this->Name = L"Form2";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Form2";
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->clockPic))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
-	private: System::Void TimeClock_Click(System::Object^ sender, System::EventArgs^ e) {
-	}
-	
-private: System::Void pictureBox1_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void empLabel_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-public: 
 
-private: System::Void ViewSchedule_Click(System::Object^ sender, System::EventArgs^ e) 
-{
-	Form5^ form5 = gcnew Form5;
-	form5->Show();
-}
-private: System::Void PunchIn_Click(System::Object^ sender, System::EventArgs^ e) 
-{
-	
-	MessageBox::Show("Punched In!");
-}
-private: System::Void PunchOut_Click(System::Object^ sender, System::EventArgs^ e)
-{
-	MessageBox::Show("Punched Out!");
-}
-	   private: System::Void LogOut_Click(System::Object^ sender, System::EventArgs^ e)
-	   {
-		   this->Close();
-	   }
-};
+
+	public:
+		//button to view schedule
+	private: System::Void ViewSchedule_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		Form5^ form5 = gcnew Form5;
+		form5->Show();
+	}
+		   //button to "Punch In"
+	private: System::Void PunchIn_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		MessageBox::Show("Punched In!");//displays message punched in
+	}
+		   //button to "Punch Out"
+	private: System::Void PunchOut_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		MessageBox::Show("Punched Out!");//displays message punched out
+	}
+		   //button to log out
+	private: System::Void LogOut_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		Employee^ employee = gcnew Employee;
+		employee->online = false;
+		MessageBox::Show("Logged out!");//displays message punched out
+		this->Close();
+	}
+	};
 }

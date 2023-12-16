@@ -1,4 +1,7 @@
+//Form3.h home page for users with admin access
+
 #pragma once
+//headers referenced in this program
 #include "Form5.h"
 #include "Form6.h"
 #include "Form7.h"
@@ -11,31 +14,23 @@ namespace Final {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	/// <summary>
-	/// Summary for Form3
-	/// </summary>
 	public ref class Form3 : public System::Windows::Forms::Form
 	{
 	public:
+		//form to pass on employee data
 		Form3(Employee^ employee)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
+
 		}
+		//void form
 		Form3(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
 		}
 
 	protected:
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
+		//destructor
 		~Form3()
 		{
 			if (components)
@@ -44,31 +39,22 @@ namespace Final {
 			}
 		}
 
-	private: System::Windows::Forms::Label^ WelcomeText;
-
-	private: System::Windows::Forms::Button^ PunchIn;
-	private: System::Windows::Forms::Button^ PunchOut;
-	private: System::Windows::Forms::Button^ LogOut;
-	private: System::Windows::Forms::Button^ ViewSchedule;
-	private: System::Windows::Forms::MonthCalendar^ monthCalendar1;
-	private: System::Windows::Forms::Button^ CreateEmployee;
-	private: System::Windows::Forms::Button^ button1;
-
-	protected:
+	private: System::Windows::Forms::Label^ WelcomeText;//Label welcoming admin
+	private: System::Windows::Forms::Button^ PunchIn;//Button to punch in
+	private: System::Windows::Forms::Button^ PunchOut;//Button to punch out
+	private: System::Windows::Forms::Button^ LogOut;//Button to log out
+	private: System::Windows::Forms::Button^ ViewSchedule;//Button to view schedule
+	private: System::Windows::Forms::MonthCalendar^ monthCalendar1;//Large calender to view
+	private: System::Windows::Forms::Button^ CreateEmployee;//Button to open form to create employee
+	private: System::Windows::Forms::Button^ RemoveEmployee;//Button to open form to remove employee
 
 	protected:
 
 	private:
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
 		System::ComponentModel::Container^ components;
 
+		//where the magic happens
 #pragma region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
 		void InitializeComponent(void)
 		{
 			this->WelcomeText = (gcnew System::Windows::Forms::Label());
@@ -78,7 +64,7 @@ namespace Final {
 			this->ViewSchedule = (gcnew System::Windows::Forms::Button());
 			this->monthCalendar1 = (gcnew System::Windows::Forms::MonthCalendar());
 			this->CreateEmployee = (gcnew System::Windows::Forms::Button());
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->RemoveEmployee = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// WelcomeText
@@ -166,26 +152,26 @@ namespace Final {
 			this->CreateEmployee->UseVisualStyleBackColor = false;
 			this->CreateEmployee->Click += gcnew System::EventHandler(this, &Form3::CreateEmployee_Click);
 			// 
-			// button1
+			// RemoveEmployee
 			// 
-			this->button1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
+			this->RemoveEmployee->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
 				static_cast<System::Int32>(static_cast<System::Byte>(255)));
-			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->RemoveEmployee->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->button1->Location = System::Drawing::Point(733, 435);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(221, 67);
-			this->button1->TabIndex = 9;
-			this->button1->Text = L"Remove Employee";
-			this->button1->UseVisualStyleBackColor = false;
-			this->button1->Click += gcnew System::EventHandler(this, &Form3::button1_Click);
+			this->RemoveEmployee->Location = System::Drawing::Point(733, 435);
+			this->RemoveEmployee->Name = L"RemoveEmployee";
+			this->RemoveEmployee->Size = System::Drawing::Size(221, 67);
+			this->RemoveEmployee->TabIndex = 9;
+			this->RemoveEmployee->Text = L"Remove Employee";
+			this->RemoveEmployee->UseVisualStyleBackColor = false;
+			this->RemoveEmployee->Click += gcnew System::EventHandler(this, &Form3::button1_Click);
 			// 
 			// Form3
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1188, 552);
-			this->Controls->Add(this->button1);
+			this->Controls->Add(this->RemoveEmployee);
 			this->Controls->Add(this->CreateEmployee);
 			this->Controls->Add(this->monthCalendar1);
 			this->Controls->Add(this->ViewSchedule);
@@ -201,34 +187,43 @@ namespace Final {
 
 		}
 #pragma endregion
-	private: System::Void TimeClock_Click(System::Object^ sender, System::EventArgs^ e) {
-	}
+	public:
+		Employee^ employee = nullptr;
+		//closes form when clicked, sets employee to not online
 	private: System::Void LogOut_Click(System::Object^ sender, System::EventArgs^ e)
 	{
+		Employee^ employee = gcnew Employee;
+		employee->online = false;
+		MessageBox::Show("Logged out!");//displays message punched out
 		this->Close();
 	}
-	private: System::Void PunchIn_Click(System::Object^ sender, System::EventArgs^ e) 
+		   //button that "punches in" the employee
+	private: System::Void PunchIn_Click(System::Object^ sender, System::EventArgs^ e)
 	{
 		MessageBox::Show("Punched In!");
 	}
-private: System::Void PunchOut_Click(System::Object^ sender, System::EventArgs^ e) 
-{
-	MessageBox::Show("Punched Out!");
-}
-private: System::Void CreateEmployee_Click(System::Object^ sender, System::EventArgs^ e)
-{
-	Form6^ form6 = gcnew Form6;
-	form6->Show();
-}
-private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) 
-{
-	Form7^ form7 = gcnew Form7;
-	form7->Show();
-}
-private: System::Void ViewSchedule_Click(System::Object^ sender, System::EventArgs^ e) 
-{
-	Form5^ form5 = gcnew Form5;
-	form5->Show();
-}
-};
+		   //button that "punches out" the employee
+	private: System::Void PunchOut_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		MessageBox::Show("Punched Out!");
+	}
+		   //button that opens form7 to create employee
+	private: System::Void CreateEmployee_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		Form7^ form7 = gcnew Form7;
+		form7->Show();
+	}
+		   //button that removes employee
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		Form6^ form6 = gcnew Form6;
+		form6->Show();
+	}
+		   //button to view schedule
+	private: System::Void ViewSchedule_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		Form5^ form5 = gcnew Form5;
+		form5->Show();
+	}
+	};
 }

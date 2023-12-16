@@ -1,3 +1,5 @@
+//Form5.h schedule viewer for all employees
+
 #pragma once
 #include "Employee.h"
 namespace Final {
@@ -9,14 +11,14 @@ namespace Final {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace System::Data::SqlClient;
-	/// <summary>
-	/// Summary for Form5
-	/// </summary>
+
 	public ref class Form5 : public System::Windows::Forms::Form
 	{
 	public:
+		//constructor that takes employee, sets employees schedule to one taken from database
 		Form5(Employee^ employee)
 		{
+			//query assigning values to the employees schedule
 			InitializeComponent();
 			int ID = employee->id;
 			String^ connection = "Data Source=(localdb)\\localsql;Initial Catalog=customerdb; Integrated Security=True";
@@ -27,7 +29,7 @@ namespace Final {
 			//Employee^ employee2 = gcnew Employee;
 			SqlDataReader^ reader = command.ExecuteReader();
 			if (reader->Read())
-			{	
+			{
 				employee->id = reader->GetInt32(0);
 				employee->Sunday = reader->GetString(1);
 				employee->Monday = reader->GetString(2);
@@ -36,7 +38,7 @@ namespace Final {
 				employee->Thursday = reader->GetString(5);
 				employee->Friday = reader->GetString(6);
 				employee->Saturday = reader->GetString(7);
-
+				//sets label's text to what was taken from the database
 				SunWork->Text = "" + employee->Sunday;
 				MonWork->Text = "" + employee->Monday;
 				TueWork->Text = "" + employee->Tuesday;
@@ -45,18 +47,14 @@ namespace Final {
 				FriWork->Text = "" + employee->Friday;
 				SatWork->Text = "" + employee->Friday;
 			}
-
-
-			
 		}
+		//constructor
 		Form5(void)
 		{
 			InitializeComponent();
 		}
 	protected:
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
+		//destructor
 		~Form5()
 		{
 			if (components)
@@ -64,30 +62,26 @@ namespace Final {
 				delete components;
 			}
 		}
-	private: System::ComponentModel::BackgroundWorker^ backgroundWorker1;
-	private: System::Windows::Forms::Label^ Sun;
+	private: System::Windows::Forms::Label^ Sun;//Labels for the weekdays
 	private: System::Windows::Forms::Label^ Mon;
 	private: System::Windows::Forms::Label^ Tue;
 	private: System::Windows::Forms::Label^ Wed;
 	private: System::Windows::Forms::Label^ Thu;
 	private: System::Windows::Forms::Label^ Sat;
 	private: System::Windows::Forms::Label^ Fri;
-	private: System::Windows::Forms::Label^ SunWork;
+	private: System::Windows::Forms::Label^ SunWork;//Labels that display user's scheduled hours
 	private: System::Windows::Forms::Label^ MonWork;
 	private: System::Windows::Forms::Label^ TueWork;
 	private: System::Windows::Forms::Label^ WedWork;
 	private: System::Windows::Forms::Label^ ThuWork;
 	private: System::Windows::Forms::Label^ FriWork;
 	private: System::Windows::Forms::Label^ SatWork;
-	private: System::Windows::Forms::Button^ Back;
+	private: System::Windows::Forms::Button^ Back;//button to go back
 	protected:
 
 
 	private:
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		System::ComponentModel::Container ^components;
+		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -96,7 +90,6 @@ namespace Final {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->Sun = (gcnew System::Windows::Forms::Label());
 			this->Mon = (gcnew System::Windows::Forms::Label());
 			this->Tue = (gcnew System::Windows::Forms::Label());
@@ -125,7 +118,6 @@ namespace Final {
 			this->Sun->Size = System::Drawing::Size(90, 39);
 			this->Sun->TabIndex = 0;
 			this->Sun->Text = L"SUN";
-			this->Sun->Click += gcnew System::EventHandler(this, &Form5::label1_Click);
 			// 
 			// Mon
 			// 
@@ -210,7 +202,6 @@ namespace Final {
 			this->SunWork->Size = System::Drawing::Size(38, 39);
 			this->SunWork->TabIndex = 9;
 			this->SunWork->Text = L"0";
-			this->SunWork->Click += gcnew System::EventHandler(this, &Form5::SunWork_Click);
 			// 
 			// MonWork
 			// 
@@ -223,7 +214,6 @@ namespace Final {
 			this->MonWork->Size = System::Drawing::Size(68, 39);
 			this->MonWork->TabIndex = 10;
 			this->MonWork->Text = L"9-5";
-			this->MonWork->Click += gcnew System::EventHandler(this, &Form5::MonWork_Click);
 			// 
 			// TueWork
 			// 
@@ -321,23 +311,16 @@ namespace Final {
 			this->Controls->Add(this->Mon);
 			this->Controls->Add(this->Sun);
 			this->Name = L"Form5";
-			this->Load += gcnew System::EventHandler(this, &Form5::Form5_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
-	private: System::Void Form5_Load(System::Object^ sender, System::EventArgs^ e) {
-	}
-	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
-	}
-	private: System::Void Back_Click(System::Object^ sender, System::EventArgs^ e) 
+		//close the form
+	private: System::Void Back_Click(System::Object^ sender, System::EventArgs^ e)
 	{
 		this->Close();
 	}
-private: System::Void SunWork_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void MonWork_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-};
+
+	};
 }

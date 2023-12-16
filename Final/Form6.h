@@ -1,3 +1,5 @@
+//Form6.h Remove Employee
+
 #pragma once
 #include "Form2.h"
 #include "Form3.h"
@@ -12,24 +14,18 @@ namespace Final {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace System::Data::SqlClient;
-	/// <summary>
-	/// Summary for Form6
-	/// </summary>
+
 	public ref class Form6 : public System::Windows::Forms::Form
 	{
 	public:
+		//constructor
 		Form6(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
 		}
 
 	protected:
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
+		//destructor
 		~Form6()
 		{
 			if (components)
@@ -37,27 +33,22 @@ namespace Final {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Label^ RemoveLabel;
-	protected:
-	private: System::Windows::Forms::Panel^ panel1;
-	private: System::Windows::Forms::TextBox^ Input;
+	private: System::Windows::Forms::Label^ RemoveLabel;//Label stating remove employee
+	private: System::Windows::Forms::Panel^ panel1;//panel behind label for cosmetic purposes
+	private: System::Windows::Forms::TextBox^ Input;//textbox to take input from user
+	private: System::Windows::Forms::Button^ removeButton;//button to remove user
 
 	private:
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		System::ComponentModel::Container ^components;
+		System::ComponentModel::Container^ components;
 
+		//magic
 #pragma region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
 		void InitializeComponent(void)
 		{
 			this->RemoveLabel = (gcnew System::Windows::Forms::Label());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->Input = (gcnew System::Windows::Forms::TextBox());
+			this->removeButton = (gcnew System::Windows::Forms::Button());
 			this->panel1->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -94,11 +85,25 @@ namespace Final {
 			this->Input->Text = L"Ex. 1";
 			this->Input->TextChanged += gcnew System::EventHandler(this, &Form6::Input_TextChanged);
 			// 
+			// removeButton
+			// 
+			this->removeButton->BackColor = System::Drawing::SystemColors::ActiveCaption;
+			this->removeButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 27.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->removeButton->Location = System::Drawing::Point(142, 121);
+			this->removeButton->Name = L"removeButton";
+			this->removeButton->Size = System::Drawing::Size(370, 87);
+			this->removeButton->TabIndex = 5;
+			this->removeButton->Text = L"Remove Employee";
+			this->removeButton->UseVisualStyleBackColor = false;
+			this->removeButton->Click += gcnew System::EventHandler(this, &Form6::addButton_Click);
+			// 
 			// Form6
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(633, 115);
+			this->ClientSize = System::Drawing::Size(633, 220);
+			this->Controls->Add(this->removeButton);
 			this->Controls->Add(this->panel1);
 			this->Name = L"Form6";
 			this->Text = L"Form6";
@@ -109,39 +114,45 @@ namespace Final {
 		}
 #pragma endregion
 	public:
-		Employee^ employee = nullptr;
+		Employee^ employee = nullptr;//creates employee
 	private: System::Void Input_TextChanged(System::Object^ sender, System::EventArgs^ e)
 	{
-		String^ input = this->Input->Text;
-		
-		if (input->Length == 0 )
+		//allows text to be modified by user
+	}
+		   //button to execute removal of employee
+	private: System::Void addButton_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		String^ input = this->Input->Text;//takes info from user
+
+		if (input->Length == 0)//ensures something is entered
 		{
-			MessageBox::Show("Please enter a user to remove");
+			MessageBox::Show("Please enter a user to remove");//outputs message if no value is entered
 			return;
 		}
 		try
-		{
-			String^ connection = "Data Source=(localdb)\\localsql;Initial Catalog=customerdb; Integrated Security=True";//////////////////////
+		{//query to remove user
+			String^ connection = "Data Source=(localdb)\\localsql;Initial Catalog=customerdb; Integrated Security=True";//open dp
 			SqlConnection sqlConn(connection);
 			sqlConn.Open();
-			String^ sqlQuery = "DELETE * FROM employees WHERE id=@input AND DELETE * FROM Schedule WHERE id=@input;";
+			String^ sqlQuery = "DELETE * FROM employees WHERE id=@input AND DELETE * FROM Schedule WHERE id=@input;";//query to remoe from employee db
 			SqlCommand command(sqlQuery, % sqlConn);
 			command.Parameters->AddWithValue("@user", input);
-			
 			SqlDataReader^ reader = command.ExecuteReader();
 			if (reader->Read())
 			{
-				employee = gcnew Employee;
-				employee->id = reader->GetInt32(0);
-				employee->username = reader->GetString(1);
-				employee->password = reader->GetString(2);
-				employee->isAdmin = true;
 				this->Close();
 			}
 			else
 			{
 				MessageBox::Show("Enter a valid user ID");
 			}
+			sqlConn.Close();
+			sqlConn.Open();
+			String^ sqlQuery = "DELETE * FROM schedule WHERE id=@input AND DELETE * FROM Schedule WHERE id=@input;";//query to remove from schedule db
+			SqlCommand command(sqlQuery, % sqlConn);
+			command.Parameters->AddWithValue("@user", input);
+			sqlConn.Close();
+
 		}
 
 		catch (Exception^ e)
