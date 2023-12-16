@@ -3,7 +3,7 @@
 //a user logs in they are returns here with 2 bools, admin and online. If admin and online they start a loop from
 //form3, if not admin but online they start a loop with form 2. When user clicks "log out" they will
 //no longer be online and the loop will end
-
+//
 //header files used
 #include "Form1.h"
 #include "Form2.h"
